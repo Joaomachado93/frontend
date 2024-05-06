@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <TopBar @opinionArticlesClicked="scrollToOpinionArticles" />
+    <TopBar @opinionArticlesClicked="scrollToOpinionArticles" @isOpinionArticles="handleOpinionArticlesCheck" />
     <SimpleCarousel />
     <CardsCarousel ref="cardsCarousel" :sliders="sliders" />
   </div>
@@ -24,17 +24,22 @@ export default {
         { imgUrl: require('@/assets/images-card.jpg'), title: "GI products such as figs, pepper and olive oil grow under cooperation between the EU and Africa", img: require('@/assets/person2.jpg'), name: "Inês Monteiro Alves", date: "12 julho 2023" },
         { imgUrl: require('@/assets/black.jpg'), title: "Influencers and Brand Defamation", img: require('@/assets/person1.jpg'), name: "Rute Franco", date: "12 julho 2023" },
         { imgUrl: require('@/assets/images-card.jpg'), title: "Innovations in Sustainable Architecture", img: require('@/assets/person3.jpg'), name: "Rute Franco", date: "12 julho 2023" }
-      ]
+      ],
+      isOpinionArticles: false
     };
   },
   methods: {
-// App.vue
-scrollToOpinionArticles() {
-  const carouselElement = this.$refs.cardsCarousel.$refs.sliderContainer;
-  if (carouselElement) {
-    carouselElement.scrollIntoView({ behavior: 'smooth' });
-  }
-}
+    scrollToOpinionArticles() {
+      if (this.isOpinionArticles) { // Verifique se é 'Opinion Articles'
+        const carouselElement = this.$refs.cardsCarousel.$refs.sliderContainer;
+        if (carouselElement) {
+          carouselElement.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    },
+    handleOpinionArticlesCheck(isOpinionArticles) { // Método para receber o evento do TopBar indicando se é 'Opinion Articles'
+      this.isOpinionArticles = isOpinionArticles;
+    }
 
 
 }

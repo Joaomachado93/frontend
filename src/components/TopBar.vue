@@ -92,15 +92,17 @@ export default {
       this.activeSubMenuIndex = this.activeSubMenuIndex === index ? -1 : index;
   if (this.menuItems[index].submenu.includes('Opinion Articles')) {
     this.$emit('opinionArticlesClicked');
-  }
+  } 
     },
     checkMobile() {
       this.isMobile = window.innerWidth < 768;
-    },  handleSubmenuClick(subItemName) {
-    if (subItemName === 'Opinion Articles') {
-      this.$emit('opinionArticlesClicked');
+    },  
+    handleSubmenuClick(subItemName) {
+      if (subItemName === 'Opinion Articles') {
+        this.$emit('opinionArticlesClicked');
+      }
+      this.$emit('isOpinionArticles', subItemName === 'Opinion Articles');
     }
-  }
     
   }
 }
