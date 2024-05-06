@@ -1,15 +1,22 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <TopBar />
+    <SimpleCarousel />
+   <CardsCarousel />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TopBar from './components/TopBar.vue'
+import SimpleCarousel from './components/SimpleCarousel.vue'
+import CardsCarousel from './components/CardsCarousel.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    TopBar,
+    SimpleCarousel,
+    CardsCarousel
   }
 }
 </script>
@@ -21,6 +28,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
