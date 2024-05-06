@@ -11,7 +11,7 @@
         <div class="related-content" v-if="activeSubMenuIndex !== -1">
           <div class="container-submenu">
             <ul class="submenu">
-              <li class="submenu-element" v-for="subItem in menuItems[activeSubMenuIndex].submenu" :key="subItem">
+              <li class="submenu-element" v-for="(subItem, subIndex) in menuItems[activeSubMenuIndex].submenu" :key="subIndex" @click="handleSubmenuClick(subItem)">
                 {{ subItem }}
               </li>
             </ul>
@@ -89,15 +89,19 @@ export default {
       this.menuVisible = !this.menuVisible;
     },
     toggleSubMenu(index) {
-      if (this.menuItems[index].title === 'IP News & Insights') {
-        this.activeSubMenuIndex = this.activeSubMenuIndex === index ? -1 : index;
-      } else {
-        this.activeSubMenuIndex = -1; // Fecha qualquer submenu que estiver aberto, caso não seja 'IP News & Insights'
-      }
+      this.activeSubMenuIndex = this.activeSubMenuIndex === index ? -1 : index;
+  if (this.menuItems[index].submenu.includes('Opinion Articles')) {
+    this.$emit('opinionArticlesClicked');
+  }
     },
     checkMobile() {
       this.isMobile = window.innerWidth < 768;
+    },  handleSubmenuClick(subItemName) {
+    if (subItemName === 'Opinion Articles') {
+      this.$emit('opinionArticlesClicked');
     }
+  }
+    
   }
 }
 </script>

@@ -1,33 +1,32 @@
 <template>
-  <div id="vueapp">
-    <div class="slider-container">
-      <p class="header-text">Opinion Articles</p>
-      <div class="my-slider"
-           @mousedown="startDrag"
-           @mouseup="stopDrag"
-           @mouseleave="stopDrag"
-           @mousemove="dragging"
-           @touchstart="startDrag"
-           @touchend="stopDrag"
-           @touchmove="dragging"
-           @touchcancel="stopDrag">
-        <div v-for="(item, index) in sliders" :key="index" class="slider-item"
-             :style="{ transform: `translateX(${translateX}px)`}">
-          <div class="card">
-            <img :src="item.imgUrl" :alt="item.title" class="card-img">
-            <div class="title-wrapper">
-              {{ item.title }}
-              <div class="author-name">
-                <img :src="item.img" :alt="item.name" class="author-img">
-                {{ item.name }}
-                <div class="author-details">
-                  <div class="article-tag"><label>Opinion Article</label></div>
-                  <span class="publish-date">{{ item.date }}</span>
-                </div>
+  <div class="slider-container" ref="sliderContainer" >
+    <p class="header-text">Opinion Articles</p>
+    <div class="my-slider"
+         @mousedown="startDrag"
+         @mouseup="stopDrag"
+         @mouseleave="stopDrag"
+         @mousemove="dragging"
+         @touchstart="startDrag"
+         @touchend="stopDrag"
+         @touchmove="dragging"
+         @touchcancel="stopDrag">
+      <div v-for="(item, index) in sliders" :key="index" class="slider-item"
+           :style="{ transform: `translateX(${translateX}px)`}">
+        <div class="card">
+          <img :src="item.imgUrl" :alt="item.title" class="card-img">
+          <div class="title-wrapper">
+            {{ item.title }}
+            <div class="author-name">
+              <img :src="item.img" :alt="item.name" class="author-img">
+              {{ item.name }}
+              <div class="author-details">
+                <div class="article-tag"><label>Opinion Article</label></div>
+                <span class="publish-date">{{ item.date }}</span>
               </div>
             </div>
-            <div class="author-info">
-            </div>
+          </div>
+          <div class="author-info">
+            <!-- Additional author information could be placed here -->
           </div>
         </div>
       </div>
@@ -37,24 +36,25 @@
 
 <script>
 export default {
+  props: {
+    sliders: {
+      type: Array,
+      default: () => []
+    }
+  },
   data() {
     return {
       startX: 0,
       currentX: 0,
       translateX: 0,
-      isDragging: false,
-      sliders: [
-        { imgUrl: require('@/assets/images-card.jpg'), title: "GI products such as figs, pepper and olive oil grow under cooperation between the EU and Africa", img: require('@/assets/person2.jpg'), name: "Inês Monteiro Alves", date: "12 julho 2023" },
-        { imgUrl: require('@/assets/black.jpg'), title: "Influencers and Brand Defamation", img: require('@/assets/person1.jpg'), name: "Rute Franco", date: "12 julho 2023" },
-        { imgUrl: require('@/assets/images-card.jpg'), title: "Innovations in Sustainable Architecture", img: require('@/assets/person3.jpg'), name: "Rute Franco", date: "12 julho 2023" }
-      ]
+      isDragging: false
     };
   },
   methods: {
     startDrag(e) {
       e = e.type.includes('touch') ? e.touches[0] : e;
-      this.isDragging = true;
       this.startX = e.clientX;
+      this.isDragging = true;
       this.currentX = this.translateX;
     },
     dragging(e) {
@@ -100,9 +100,6 @@ body {
   min-width: 100%;
   transition: transform 0.2s ease-in-out;
 }
-.author-name{
-  font-size: 12px
-}
 
 .slider-item {
   flex: 0 0 auto;
@@ -143,7 +140,7 @@ body {
   width: 24px;
 }
 
-.author-details{
+.author-details {
   display: flex;
   align-items: center;
   font-size: 12px;
@@ -156,7 +153,7 @@ body {
   border-radius: 12px;
   display: flex;
   height: 20px;
-  align-items: center;
+  align-items:center;
   padding: 12px 9px;
   border: 1px solid;
 }
@@ -185,4 +182,3 @@ body {
   }
 }
 </style>
-

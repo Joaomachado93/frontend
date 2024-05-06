@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <TopBar />
+    <TopBar @opinionArticlesClicked="scrollToOpinionArticles" />
     <SimpleCarousel />
-   <CardsCarousel />
+    <CardsCarousel ref="cardsCarousel" :sliders="sliders" />
   </div>
 </template>
 
@@ -17,7 +17,28 @@ export default {
     TopBar,
     SimpleCarousel,
     CardsCarousel
+  },
+  data() {
+    return {
+      sliders: [
+        { imgUrl: require('@/assets/images-card.jpg'), title: "GI products such as figs, pepper and olive oil grow under cooperation between the EU and Africa", img: require('@/assets/person2.jpg'), name: "Inês Monteiro Alves", date: "12 julho 2023" },
+        { imgUrl: require('@/assets/black.jpg'), title: "Influencers and Brand Defamation", img: require('@/assets/person1.jpg'), name: "Rute Franco", date: "12 julho 2023" },
+        { imgUrl: require('@/assets/images-card.jpg'), title: "Innovations in Sustainable Architecture", img: require('@/assets/person3.jpg'), name: "Rute Franco", date: "12 julho 2023" }
+      ]
+    };
+  },
+  methods: {
+// App.vue
+scrollToOpinionArticles() {
+  const carouselElement = this.$refs.cardsCarousel.$refs.sliderContainer;
+  if (carouselElement) {
+    carouselElement.scrollIntoView({ behavior: 'smooth' });
   }
+}
+
+
+}
+
 }
 </script>
 
